@@ -3,6 +3,5 @@
     public interface ICrudRepository<TDomain, ID>
     {
         Task<IReadOnlyList<TDomain>> GetAllAsync();
-        Task SynchronizeDataAsync();
     }
 }

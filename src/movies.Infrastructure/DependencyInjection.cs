@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using movies.Domain.Interfaces;
 using movies.Domain.Repositories;
+using movies.Infrastructure.ExternalServices;
 using movies.Infrastructure.Mappings;
 using movies.Infrastructure.Persistences;
 using movies.Infrastructure.Persistences.Contexts;
@@ -14,6 +16,7 @@ namespace movies.Infrastructure
         {
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddHttpClient<IMovieApiService, MovieApiService>();
 
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),

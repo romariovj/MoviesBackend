@@ -32,10 +32,5 @@ namespace movies.Infrastructure.Persistences.Configurations
 
             return _mapper.Map<IReadOnlyList<TDomain>>(entities);
         }
-
-        public Task SynchronizeDataAsync()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

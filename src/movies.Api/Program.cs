@@ -1,4 +1,5 @@
 using movies.Infrastructure;
+using movies.Infrastructure.ExternalServices;
 using movies.Infrastructure.Persistences;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddHostedService<DatabaseInitializer>();
+builder.Services.AddHostedService<MoviesUpdateService>();
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 
