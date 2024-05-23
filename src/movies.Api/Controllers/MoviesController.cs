@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using movies.Application.Dtos;
 using movies.Application.Queries;
@@ -8,6 +9,7 @@ namespace movies.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     [SwaggerTag("Movies Backend")]
     public class MoviesController: ControllerBase
     {
