@@ -67,5 +67,22 @@ namespace movies.Infrastructure.Persistences
                 .ToListAsync();
             return _mapper.Map<IReadOnlyList<Movie>>(entities);
         }
+
+        public async Task<IReadOnlyList<Movie>> GetAllMoviesByTitle(string title)
+        {
+            var entities = await _context.Movies
+                .AsNoTracking()
+                .Where(m => m.Title.Contains(title))
+                .ToListAsync();
+            return _mapper.Map<IReadOnlyList<Movie>>(entities);
+        }
+
+        public async Task<IReadOnlyList<Movie>> GetRandomMovies(int quantity=5)
+        {
+            var random = new Random();
+            var entities = await _context.Movies
+                .AsNoTracking().OrderBy(x => random.Next()).Take(quantity).ToListAsync();
+            return _mapper.Map<IReadOnlyList<Movie>>(entities);
+        }
     }
 }

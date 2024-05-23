@@ -7,5 +7,7 @@ namespace movies.Domain.Repositories
         Task SynchronizePopularMovies(IReadOnlyList<Movie> movies);
         Task SynchronizeTrendingMovies(IReadOnlyList<Movie> movies);
         Task<IReadOnlyList<Movie>> GetAllMoviesByType(string type);
+        Task<IReadOnlyList<Movie>> GetAllMoviesByTitle(string title);
+        Task<IReadOnlyList<Movie>> GetRandomMovies(int quantity);
     }
 }

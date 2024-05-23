@@ -43,7 +43,29 @@ namespace movies.Api.Controllers
 
             var movies = await _mediator.Send(query);
             return Ok(movies);
+        }
 
+        [HttpGet("search")]
+        [SwaggerOperation(Summary = "Buscar peliculas por titulo", Description = "Buscar peliculas por titulo.")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Busqueda de peliculas", typeof(List<MovieSearchDto>))]
+        public async Task<IActionResult> SearchMovies([FromQuery] string title)
+        {
+            var query = new GetAllMoviesByTitleQuery();
+            query.Title = title;
+
+            var movies = await _mediator.Send(query);
+            return Ok(movies);
+        }
+
+        [HttpGet("home")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Lista de peliculas", typeof(List<MovieDto>))]
+        public async Task<IActionResult> GetHomeMovies()
+        {
+            var query = new GetRandomMoviesQuery();
+            query.Quantity = 10;
+
+            var movies = await _mediator.Send(query);
+            return Ok(movies);
         }
     }
 }

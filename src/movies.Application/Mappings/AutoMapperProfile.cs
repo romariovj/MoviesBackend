@@ -9,6 +9,7 @@ namespace movies.Application.Mappings
         public AutoMapperProfile() 
         {
             CreateMap<Movie, MovieDto>();
+            CreateMap<Movie, MovieSearchDto>();
         }
     }
 }
