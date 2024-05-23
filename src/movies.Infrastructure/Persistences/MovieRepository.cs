@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using movies.Domain.Entities;
 using movies.Domain.Repositories;
 using movies.Infrastructure.Persistences.Configurations;
@@ -10,12 +11,14 @@ namespace movies.Infrastructure.Persistences
     public class MovieRepository : CrudRepository<Movie, MovieEntity, int>, IMovieRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
         private const string PopularType = "Popular";
         private const string TrendingType = "Trending";
 
         public MovieRepository(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task SynchronizePopularMovies(IReadOnlyList<Movie> movies)
@@ -54,6 +57,15 @@ namespace movies.Infrastructure.Persistences
             }
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IReadOnlyList<Movie>> GetAllMoviesByType(string type)
+        {
+            var entities = await _context.Movies
+                .AsNoTracking()
+                .Where(m => m.Type.Equals(type))
+                .ToListAsync();
+            return _mapper.Map<IReadOnlyList<Movie>>(entities);
         }
     }
 }

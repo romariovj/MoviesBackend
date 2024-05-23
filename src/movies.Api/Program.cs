@@ -1,3 +1,4 @@
+using movies.Application;
 using movies.Infrastructure;
 using movies.Infrastructure.ExternalServices;
 using movies.Infrastructure.Persistences;
@@ -5,6 +6,7 @@ using movies.Infrastructure.Persistences;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddHostedService<DatabaseInitializer>();
 builder.Services.AddHostedService<MoviesUpdateService>();
